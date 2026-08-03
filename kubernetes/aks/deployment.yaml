@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: aiops-api
+  namespace: aiops
+
+spec:
+
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: aiops-api
+
+  template:
+
+    metadata:
+      labels:
+        app: aiops-api
+
+    spec:
+
+      containers:
+
+      - name: aiops-api
+
+        image: nikhilaiopsacr2026.azurecr.io/aiops-platform-api:v1
+
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 5000
+
+
+        resources:
+
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+
+
+        readinessProbe:
+
+          httpGet:
+            path: /health
+            port: 5000
+
+          initialDelaySeconds: 60
+          periodSeconds: 10
+
+
+        livenessProbe:
+
+          httpGet:
+            path: /health
+            port: 5000
+
+          initialDelaySeconds: 90
+          periodSeconds: 20

@@ -1,0 +1,258 @@
+# =========================
+# Python
+# =========================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.conda/
+
+# Jupyter
+.ipynb_checkpoints/
+
+
+# =========================
+# Environment Variables / Secrets
+# =========================
+
+.env
+.env.*
+*.key
+*.pem
+
+# Azure credentials
+.azure/
+
+# Kubernetes secrets
+secrets.yaml
+secret.yaml
+
+
+# =========================
+# Machine Learning
+# =========================
+
+# Training outputs
+runs/
+logs/
+
+# TensorBoard
+tensorboard/
+
+# MLflow local tracking
+mlruns/
+
+# Model checkpoints
+*.ckpt
+*.h5
+
+
+# =========================
+# Large Model Files
+# =========================
+
+# Model binaries (store in Azure Blob/S3/MLflow instead)
+*.keras
+*.pkl
+*.h5
+*.onnx
+*.pt
+*.pth
+*.bin
+
+# Model output directories
+app/models/
+ai/models/
+
+
+# =========================
+# Dataset
+# =========================
+
+# Raw datasets (if large)
+datasets/raw/
+
+# Processed datasets
+datasets/processed/
+
+
+# =========================
+# Docker
+# =========================
+
+.docker/
+
+# Docker override files
+docker-compose.override.yml
+
+
+# =========================
+# Kubernetes
+# =========================
+
+# Local kube config
+.kube/
+kubeconfig
+
+# Helm generated files
+charts/*/charts/
+charts/*/tmp/
+
+
+# =========================
+# Terraform
+# =========================
+
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.auto.tfvars
+terraform.tfvars
+
+# Terraform secrets
+*.tfvars.json
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Terraform plan output (may contain secrets)
+*.tfplan
+
+
+# =========================
+# Azure DevOps
+# =========================
+
+# Pipeline local files
+azure-pipelines.local.yml
+
+
+# =========================
+# Bicep Compiled Output
+# =========================
+
+# ARM templates compiled from Bicep — regenerate with 'az bicep build'
+infra/azure/*.json
+infra/azure/**/*.json
+
+
+# =========================
+# Ansible
+# =========================
+
+# Inventory files contain hostnames/IPs — use inventory.example instead
+infra/aws/ansible/inventory
+infra/aws/ansible/inventory.*
+!infra/aws/ansible/inventory.example
+
+# Ansible vault encrypted vars (keep encrypted ones, ignore plaintext)
+infra/aws/ansible/group_vars/*/vault.yml
+infra/aws/ansible/host_vars/*/vault.yml
+
+# Ansible retry files
+*.retry
+
+
+# =========================
+# IDE
+# =========================
+
+.vscode/
+.idea/
+
+# Visual Studio
+.vs/
+
+
+# =========================
+# OS
+# =========================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+# =========================
+# Logs
+# =========================
+
+*.log
+
+# =========================
+# Node / npm (if any frontend tooling is added)
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+.pnp/
+.pnp.js
+dist/
+build/
+
+
+# =========================
+# Testing & Coverage
+# =========================
+
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+test-results/
+junit.xml
+
+
+# =========================
+# Temporary / Local Files
+# =========================
+
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+tmp/
+temp/
+
+
+# =========================
+# Jupyter Notebooks (generated output)
+# =========================
+
+*.ipynb
+!docs/**/*.ipynb
+
+
+# =========================
+# ArgoCD / Helm local overrides
+# =========================
+
+argocd/local-values.yaml
+*-local.yaml
+*-override.yaml
+
+
+# =========================
+# Misc
+# =========================
+
+# Windows artifacts
+desktop.ini
+Thumbs.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride

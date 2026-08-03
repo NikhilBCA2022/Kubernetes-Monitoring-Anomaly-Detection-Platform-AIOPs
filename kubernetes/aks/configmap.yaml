@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+
+  name: aiops-config
+  namespace: aiops
+
+
+data:
+
+  MODEL_TYPE: "LSTM Autoencoder"
+
+  SEQUENCE_LENGTH: "20"
+
+  ENVIRONMENT: "production"

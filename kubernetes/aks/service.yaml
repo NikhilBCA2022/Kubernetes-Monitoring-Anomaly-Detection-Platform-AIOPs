@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+
+  name: aiops-api-service
+  namespace: aiops
+
+
+spec:
+
+  type: LoadBalancer
+
+
+  selector:
+
+    app: aiops-api
+
+
+  ports:
+
+  - port: 80
+
+    targetPort: 5000

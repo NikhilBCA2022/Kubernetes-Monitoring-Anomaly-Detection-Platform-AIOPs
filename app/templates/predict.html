@@ -1,0 +1,1264 @@
+```html
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div>
+
+        <span class="badge">
+            AI PREDICTION ENGINE
+        </span>
+
+        <h1>
+            Cloud Incident
+            <span>Prediction</span>
+        </h1>
+
+        <p>
+            Analyze live Kubernetes and cloud-service metrics
+            using the LSTM Autoencoder model.
+        </p>
+
+    </div>
+
+    <div class="hero-icon">
+        🧠
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     MODEL STATUS
+========================================================= -->
+
+<section class="prediction-status">
+
+    <div class="status-card">
+
+        <span class="small-label">
+            MODEL STATUS
+        </span>
+
+        <div class="status-row">
+
+            <span class="status-dot" id="modelDot">
+                ●
+            </span>
+
+            <strong id="modelStatus">
+                LSTM Online
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="status-card">
+
+        <span class="small-label">
+            SEQUENCE
+        </span>
+
+        <div class="sequence-value">
+
+            <strong id="sampleCount">
+                0
+            </strong>
+
+            <span>
+                / 20
+            </span>
+
+        </div>
+
+        <small>
+            observations collected
+        </small>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     LIVE METRICS
+========================================================= -->
+
+<section class="monitor-card">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="small-label">
+                LIVE PROMETHEUS DATA
+            </span>
+
+            <h2>
+                Service Metrics
+            </h2>
+
+        </div>
+
+        <span class="live-badge">
+            ● LIVE
+        </span>
+
+    </div>
+
+
+    <div class="metrics-grid">
+
+
+        <!-- CPU -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <span>
+                    CPU Usage
+                </span>
+
+                <strong id="cpuUsage">
+                    --
+                </strong>
+
+                <small>
+                    %
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ▣
+            </div>
+
+            <div>
+
+                <span>
+                    Memory Usage
+                </span>
+
+                <strong id="memoryUsage">
+                    --
+                </strong>
+
+                <small>
+                    %
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- DISK -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ▤
+            </div>
+
+            <div>
+
+                <span>
+                    Disk Usage
+                </span>
+
+                <strong id="diskUsage">
+                    --
+                </strong>
+
+                <small>
+                    %
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- NETWORK -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ↔
+            </div>
+
+            <div>
+
+                <span>
+                    Network Latency
+                </span>
+
+                <strong id="networkLatency">
+                    --
+                </strong>
+
+                <small>
+                    ms
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- REQUEST RATE -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ↗
+            </div>
+
+            <div>
+
+                <span>
+                    Request Rate
+                </span>
+
+                <strong id="requestRate">
+                    --
+                </strong>
+
+                <small>
+                    req/s
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- POD RESTARTS -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ↻
+            </div>
+
+            <div>
+
+                <span>
+                    Pod Restarts
+                </span>
+
+                <strong id="podRestarts">
+                    --
+                </strong>
+
+                <small>
+                    count
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR RATE -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                !
+            </div>
+
+            <div>
+
+                <span>
+                    Error Rate
+                </span>
+
+                <strong id="errorRate">
+                    --
+                </strong>
+
+                <small>
+                    %
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESPONSE TIME -->
+
+        <div class="metric-card">
+
+            <div class="metric-icon">
+                ◷
+            </div>
+
+            <div>
+
+                <span>
+                    Response Time
+                </span>
+
+                <strong id="responseTime">
+                    --
+                </strong>
+
+                <small>
+                    ms
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================================================
+         COLLECTION STATUS
+    ===================================================== -->
+
+    <div class="collection-status">
+
+        <div>
+
+            <strong id="collectionTitle">
+                Waiting for metrics
+            </strong>
+
+            <p id="collectionMessage">
+                The system will collect 20 observations before
+                running anomaly detection.
+            </p>
+
+        </div>
+
+        <div class="progress-container">
+
+            <div
+                class="progress-bar"
+                id="progressBar">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     PREDICTION RESULT
+========================================================= -->
+
+<section
+    class="monitor-card prediction-result"
+    id="predictionCard">
+
+    <div>
+
+        <span class="small-label">
+            AI DETECTION
+        </span>
+
+        <h2>
+            Prediction Result
+        </h2>
+
+    </div>
+
+
+    <div
+        class="prediction-box"
+        id="predictionBox">
+
+        <div class="prediction-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <strong id="predictionStatus">
+                Collecting Data
+            </strong>
+
+            <p id="predictionMessage">
+                Waiting for 20 time-series observations.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="prediction-details"
+        id="predictionDetails"
+        style="display:none;">
+
+        <div>
+
+            <span>
+                Incident Type
+            </span>
+
+            <strong id="incidentType">
+                None
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Reconstruction Error
+            </span>
+
+            <strong id="reconstructionError">
+                --
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Threshold
+            </span>
+
+            <strong id="thresholdValue">
+                --
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     CONTROLS
+========================================================= -->
+
+<section class="refresh-area">
+
+    <span id="lastChecked">
+        Waiting for first collection...
+    </span>
+
+    <button
+        type="button"
+        onclick="resetPrediction()"
+        class="refresh-btn">
+
+        ↻ Reset Sequence
+
+    </button>
+
+</section>
+
+
+<!-- ========================================================
+     LIVE PREDICTION JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* ============================================================
+   TIMER
+============================================================ */
+
+let predictionTimer = null;
+
+let requestInProgress = false;
+
+
+/* ============================================================
+   FORMAT NUMBER
+============================================================ */
+
+function formatNumber(value, decimals = 2) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        Number.isNaN(Number(value))
+    ) {
+
+        return "--";
+
+    }
+
+    return Number(value).toFixed(decimals);
+
+}
+
+
+/* ============================================================
+   UPDATE METRICS
+============================================================ */
+
+function updateMetrics(metrics) {
+
+    if (!metrics) {
+        return;
+    }
+
+
+    document.getElementById(
+        "cpuUsage"
+    ).textContent =
+        formatNumber(
+            metrics.cpu_usage
+        );
+
+
+    document.getElementById(
+        "memoryUsage"
+    ).textContent =
+        formatNumber(
+            metrics.memory_usage
+        );
+
+
+    document.getElementById(
+        "diskUsage"
+    ).textContent =
+        formatNumber(
+            metrics.disk_usage
+        );
+
+
+    document.getElementById(
+        "networkLatency"
+    ).textContent =
+        formatNumber(
+            metrics.network_latency
+        );
+
+
+    document.getElementById(
+        "requestRate"
+    ).textContent =
+        formatNumber(
+            metrics.request_rate
+        );
+
+
+    document.getElementById(
+        "podRestarts"
+    ).textContent =
+        formatNumber(
+            metrics.pod_restarts,
+            0
+        );
+
+
+    document.getElementById(
+        "errorRate"
+    ).textContent =
+        formatNumber(
+            metrics.error_rate
+        );
+
+
+    document.getElementById(
+        "responseTime"
+    ).textContent =
+        formatNumber(
+            metrics.response_time
+        );
+
+}
+
+
+/* ============================================================
+   UPDATE MODEL STATUS
+============================================================ */
+
+function updateModelStatus(connected = true) {
+
+    const modelStatus =
+        document.getElementById(
+            "modelStatus"
+        );
+
+    const modelDot =
+        document.getElementById(
+            "modelDot"
+        );
+
+
+    if (connected) {
+
+        modelStatus.textContent =
+            "LSTM Online";
+
+        if (modelDot) {
+
+            modelDot.textContent =
+                "●";
+
+        }
+
+    }
+
+    else {
+
+        modelStatus.textContent =
+            "Connection Error";
+
+        if (modelDot) {
+
+            modelDot.textContent =
+                "●";
+
+        }
+
+    }
+
+}
+
+
+/* ============================================================
+   UPDATE COLLECTION PROGRESS
+============================================================ */
+
+function updateCollection(prediction) {
+
+    if (!prediction) {
+        return;
+    }
+
+
+    const collected =
+        Number(
+            prediction.samples_collected || 0
+        );
+
+
+    const required =
+        Number(
+            prediction.samples_required || 20
+        );
+
+
+    const percentage =
+        Math.min(
+            100,
+            (collected / required) * 100
+        );
+
+
+    /* --------------------------------------------------------
+       SAMPLE COUNT
+    -------------------------------------------------------- */
+
+    document.getElementById(
+        "sampleCount"
+    ).textContent =
+        collected;
+
+
+    /* --------------------------------------------------------
+       PROGRESS BAR
+    -------------------------------------------------------- */
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percentage + "%";
+
+
+    /* --------------------------------------------------------
+       WAITING
+    -------------------------------------------------------- */
+
+    if (
+        prediction.status ===
+        "waiting"
+    ) {
+
+        document.getElementById(
+            "collectionTitle"
+        ).textContent =
+            `Collecting observation ${collected} / ${required}`;
+
+
+        const remaining =
+            Math.max(
+                0,
+                required - collected
+            );
+
+
+        document.getElementById(
+            "collectionMessage"
+        ).textContent =
+            `${remaining} more observation(s) required before AI detection.`;
+
+        return;
+    }
+
+
+    /* --------------------------------------------------------
+       SUCCESS
+    -------------------------------------------------------- */
+
+    if (
+        prediction.status ===
+        "success"
+    ) {
+
+        document.getElementById(
+            "sampleCount"
+        ).textContent =
+            required;
+
+
+        document.getElementById(
+            "progressBar"
+        ).style.width =
+            "100%";
+
+
+        document.getElementById(
+            "collectionTitle"
+        ).textContent =
+            "Detection complete";
+
+
+        document.getElementById(
+            "collectionMessage"
+        ).textContent =
+            `${required} observations analyzed by the LSTM Autoencoder.`;
+
+        return;
+    }
+
+
+    /* --------------------------------------------------------
+       ERROR
+    -------------------------------------------------------- */
+
+    if (
+        prediction.status ===
+        "error"
+    ) {
+
+        document.getElementById(
+            "collectionTitle"
+        ).textContent =
+            "Collection error";
+
+
+        document.getElementById(
+            "collectionMessage"
+        ).textContent =
+            prediction.message ||
+            prediction.error ||
+            "Unable to collect prediction data.";
+
+    }
+
+}
+
+
+/* ============================================================
+   UPDATE PREDICTION
+============================================================ */
+
+function updatePrediction(prediction) {
+
+    if (!prediction) {
+        return;
+    }
+
+
+    /* --------------------------------------------------------
+       WAITING
+    -------------------------------------------------------- */
+
+    if (
+        prediction.status ===
+        "waiting"
+    ) {
+
+        document.getElementById(
+            "predictionStatus"
+        ).textContent =
+            "Collecting Data";
+
+
+        document.getElementById(
+            "predictionMessage"
+        ).textContent =
+            prediction.message ||
+            "Waiting for additional observations.";
+
+
+        document.getElementById(
+            "predictionDetails"
+        ).style.display =
+            "none";
+
+
+        return;
+    }
+
+
+    /* --------------------------------------------------------
+       ERROR
+    -------------------------------------------------------- */
+
+    if (
+        prediction.status ===
+        "error"
+    ) {
+
+        document.getElementById(
+            "predictionStatus"
+        ).textContent =
+            "Prediction Error";
+
+
+        document.getElementById(
+            "predictionMessage"
+        ).textContent =
+            prediction.message ||
+            prediction.error ||
+            "Unable to run prediction.";
+
+
+        document.getElementById(
+            "predictionDetails"
+        ).style.display =
+            "none";
+
+
+        return;
+    }
+
+
+    /* --------------------------------------------------------
+       SUCCESS
+    -------------------------------------------------------- */
+
+    if (
+        prediction.status ===
+        "success"
+    ) {
+
+        const isAnomaly =
+            prediction.prediction ===
+            "Anomaly";
+
+
+        /* ----------------------------------------------------
+           ANOMALY
+        ---------------------------------------------------- */
+
+        if (isAnomaly) {
+
+            document.getElementById(
+                "predictionStatus"
+            ).textContent =
+                "⚠ Anomaly Detected";
+
+
+            document.getElementById(
+                "predictionMessage"
+            ).textContent =
+                "Potential service incident detected by the LSTM Autoencoder.";
+
+        }
+
+
+        /* ----------------------------------------------------
+           NORMAL
+        ---------------------------------------------------- */
+
+        else {
+
+            document.getElementById(
+                "predictionStatus"
+            ).textContent =
+                "✓ Normal";
+
+
+            document.getElementById(
+                "predictionMessage"
+            ).textContent =
+                "Expected service behavior detected.";
+
+        }
+
+
+        /* ----------------------------------------------------
+           INCIDENT TYPE
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "incidentType"
+        ).textContent =
+            prediction.incident_type ||
+            "None";
+
+
+        /* ----------------------------------------------------
+           RECONSTRUCTION ERROR
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "reconstructionError"
+        ).textContent =
+            formatNumber(
+                prediction.reconstruction_error,
+                6
+            );
+
+
+        /* ----------------------------------------------------
+           THRESHOLD
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "thresholdValue"
+        ).textContent =
+            formatNumber(
+                prediction.threshold,
+                6
+            );
+
+
+        /* ----------------------------------------------------
+           SHOW DETAILS
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "predictionDetails"
+        ).style.display =
+            "grid";
+
+    }
+
+}
+
+
+/* ============================================================
+   LIVE PROMETHEUS PREDICTION
+============================================================ */
+
+async function collectPrediction() {
+
+    /*
+     * Prevent two requests from running at the same time.
+     */
+
+    if (requestInProgress) {
+        return;
+    }
+
+
+    requestInProgress = true;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/predict-live",
+                {
+                    method: "GET",
+                    cache: "no-store",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Prediction request failed"
+            );
+
+        }
+
+
+        /* ----------------------------------------------------
+           MODEL STATUS
+        ---------------------------------------------------- */
+
+        updateModelStatus(
+            true
+        );
+
+
+        /* ----------------------------------------------------
+           LIVE METRICS
+        ---------------------------------------------------- */
+
+        if (
+            data.metrics
+        ) {
+
+            updateMetrics(
+                data.metrics
+            );
+
+        }
+
+
+        /* ----------------------------------------------------
+           PREDICTION
+        ---------------------------------------------------- */
+
+        if (
+            data.prediction
+        ) {
+
+            updateCollection(
+                data.prediction
+            );
+
+
+            updatePrediction(
+                data.prediction
+            );
+
+        }
+
+
+        /* ----------------------------------------------------
+           LAST CHECKED
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "lastChecked"
+        ).textContent =
+            "Last checked " +
+            new Date().toLocaleTimeString();
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Live prediction error:",
+            error
+        );
+
+
+        updateModelStatus(
+            false
+        );
+
+
+        document.getElementById(
+            "collectionTitle"
+        ).textContent =
+            "Connection error";
+
+
+        document.getElementById(
+            "collectionMessage"
+        ).textContent =
+            error.message ||
+            "Unable to connect to prediction API.";
+
+    }
+
+
+    finally {
+
+        requestInProgress =
+            false;
+
+    }
+
+}
+
+
+/* ============================================================
+   RESET PREDICTION
+============================================================ */
+
+async function resetPrediction() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/predict-reset",
+                {
+                    method: "POST",
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Reset failed"
+            );
+
+        }
+
+
+        /* ----------------------------------------------------
+           RESET SEQUENCE
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "sampleCount"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "progressBar"
+        ).style.width =
+            "0%";
+
+
+        /* ----------------------------------------------------
+           COLLECTION STATUS
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "collectionTitle"
+        ).textContent =
+            "Sequence reset";
+
+
+        document.getElementById(
+            "collectionMessage"
+        ).textContent =
+            "Collecting 20 new observations...";
+
+
+        /* ----------------------------------------------------
+           PREDICTION STATUS
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "predictionStatus"
+        ).textContent =
+            "Collecting Data";
+
+
+        document.getElementById(
+            "predictionMessage"
+        ).textContent =
+            "Waiting for 20 time-series observations.";
+
+
+        document.getElementById(
+            "predictionDetails"
+        ).style.display =
+            "none";
+
+
+        /* ----------------------------------------------------
+           MODEL STATUS
+        ---------------------------------------------------- */
+
+        updateModelStatus(
+            true
+        );
+
+
+        /* ----------------------------------------------------
+           CHECK AGAIN IMMEDIATELY
+        ---------------------------------------------------- */
+
+        await collectPrediction();
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Reset error:",
+            error
+        );
+
+
+        document.getElementById(
+            "collectionTitle"
+        ).textContent =
+            "Reset error";
+
+
+        document.getElementById(
+            "collectionMessage"
+        ).textContent =
+            error.message ||
+            "Unable to reset prediction sequence.";
+
+    }
+
+}
+
+
+/* ============================================================
+   INITIAL COLLECTION
+============================================================ */
+
+collectPrediction();
+
+
+/* ============================================================
+   COLLECT EVERY 5 SECONDS
+============================================================ */
+
+predictionTimer =
+    setInterval(
+        collectPrediction,
+        5000
+    );
+
+</script>
+
+
+{% endblock %}
+```

@@ -1,0 +1,376 @@
+```html
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="health-page">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="badge">
+                SYSTEM MONITORING
+            </span>
+
+            <h1>
+                Health & Status
+            </h1>
+
+            <p>
+                Real-time status of the AIOps prediction platform.
+            </p>
+
+        </div>
+
+        <div class="online-badge">
+
+            <span class="pulse"></span>
+
+            ONLINE
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN HEALTH CARD -->
+
+    <div class="health-hero">
+
+        <div class="health-icon">
+            ✓
+        </div>
+
+        <div>
+
+            <h2>
+                System Healthy
+            </h2>
+
+            <p>
+                All critical services are operational.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATUS CARDS -->
+
+    <div class="health-grid">
+
+
+        <!-- API -->
+
+        <div class="status-card">
+
+            <div class="status-card-header">
+
+                <div class="status-icon blue">
+                    API
+                </div>
+
+                <span class="status-dot green"></span>
+
+            </div>
+
+            <h3>
+                API Service
+            </h3>
+
+            <p>
+                {{ api_status }}
+            </p>
+
+            <span class="status-label success">
+                OPERATIONAL
+            </span>
+
+        </div>
+
+
+        <!-- MODEL -->
+
+        <div class="status-card">
+
+            <div class="status-card-header">
+
+                <div class="status-icon purple">
+                    ML
+                </div>
+
+                <span class="status-dot green"></span>
+
+            </div>
+
+            <h3>
+                ML Model
+            </h3>
+
+            <p>
+                {{ model_name }}
+            </p>
+
+            <span class="status-label success">
+                LOADED
+            </span>
+
+        </div>
+
+
+        <!-- ENVIRONMENT -->
+
+        <div class="status-card">
+
+            <div class="status-card-header">
+
+                <div class="status-icon orange">
+                    ENV
+                </div>
+
+                <span class="status-dot green"></span>
+
+            </div>
+
+            <h3>
+                Environment
+            </h3>
+
+            <p>
+                {{ model_stage }}
+            </p>
+
+            <span class="status-label success">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <!-- SERVICE -->
+
+        <div class="status-card">
+
+            <div class="status-card-header">
+
+                <div class="status-icon cyan">
+                    SYS
+                </div>
+
+                <span class="status-dot green"></span>
+
+            </div>
+
+            <h3>
+                Prediction Service
+            </h3>
+
+            <p>
+                Anomaly Detection
+            </p>
+
+            <span class="status-label success">
+                READY
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- SYSTEM DETAILS -->
+
+    <div class="details-card">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="small-label">
+                    PLATFORM
+                </span>
+
+                <h2>
+                    System Information
+                </h2>
+
+            </div>
+
+            <span class="live-tag">
+                ● LIVE
+            </span>
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+            <div class="detail-item">
+
+                <span>
+                    Application
+                </span>
+
+                <strong>
+                    AIOps Kubernetes Monitoring Platform
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Machine Learning Model
+                </span>
+
+                <strong>
+                    {{ model_name }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Model Stage
+                </span>
+
+                <strong>
+                    {{ model_stage }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Model Status
+                </span>
+
+                <strong class="text-success">
+                    ✓ Ready
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Sequence Length
+                </span>
+
+                <strong>
+                    20 Samples
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Input Features
+                </span>
+
+                <strong>
+                    8 Metrics
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- MONITORING -->
+
+    <div class="monitor-card">
+
+        <div>
+
+            <span class="small-label">
+                MONITORING
+            </span>
+
+            <h2>
+                Service Availability
+            </h2>
+
+        </div>
+
+
+        <div class="availability">
+
+            <div class="availability-value">
+                100%
+            </div>
+
+            <div>
+
+                <strong>
+                    Service Available
+                </strong>
+
+                <p>
+                    No service interruptions detected.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REFRESH -->
+
+    <div class="refresh-area">
+
+        <span id="lastChecked">
+            Last checked just now
+        </span>
+
+        <button
+            onclick="location.reload()"
+            class="refresh-btn">
+
+            ↻ Refresh Status
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function updateTime() {
+
+    const now = new Date();
+
+    document.getElementById(
+        "lastChecked"
+    ).innerText =
+        "Last checked: " +
+        now.toLocaleTimeString();
+
+}
+
+updateTime();
+
+</script>
+
+{% endblock %}
+```

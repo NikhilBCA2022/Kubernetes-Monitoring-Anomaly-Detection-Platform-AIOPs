@@ -1,0 +1,381 @@
+```html
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="info-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="badge">
+                PLATFORM INFORMATION
+            </span>
+
+            <h1>
+                AIOps Platform
+            </h1>
+
+            <p>
+                Machine learning powered Kubernetes monitoring
+                and anomaly detection.
+            </p>
+
+        </div>
+
+        <div class="online-badge">
+
+            <span class="pulse"></span>
+
+            SYSTEM ONLINE
+
+        </div>
+
+    </div>
+
+
+    <!-- APPLICATION -->
+
+    <div class="info-hero">
+
+        <div class="info-icon">
+            AI
+        </div>
+
+        <div>
+
+            <span class="small-label">
+                APPLICATION
+            </span>
+
+            <h2>
+                {{ application }}
+            </h2>
+
+            <p>
+                {{ purpose }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODEL INFORMATION -->
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <div class="info-card-icon purple">
+                ML
+            </div>
+
+            <span class="small-label">
+                MACHINE LEARNING MODEL
+            </span>
+
+            <h2>
+                {{ model }}
+            </h2>
+
+            <p>
+                LSTM Autoencoder
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-card-icon blue">
+                20
+            </div>
+
+            <span class="small-label">
+                SEQUENCE LENGTH
+            </span>
+
+            <h2>
+                {{ sequence_length }}
+            </h2>
+
+            <p>
+                Time-series samples
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-card-icon cyan">
+                8
+            </div>
+
+            <span class="small-label">
+                INPUT FEATURES
+            </span>
+
+            <h2>
+                {{ features }}
+            </h2>
+
+            <p>
+                Kubernetes metrics
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-card-icon green">
+                ✓
+            </div>
+
+            <span class="small-label">
+                MODEL STATUS
+            </span>
+
+            <h2 class="text-success">
+                Ready
+            </h2>
+
+            <p>
+                Model loaded successfully
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- FEATURES -->
+
+    <div class="details-card">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="small-label">
+                    MONITORING FEATURES
+                </span>
+
+                <h2>
+                    What This Platform Monitors
+                </h2>
+
+            </div>
+
+            <span class="live-tag">
+                ● ACTIVE
+            </span>
+
+        </div>
+
+
+        <div class="feature-list">
+
+            <div class="feature-item">
+
+                <span class="feature-number">
+                    01
+                </span>
+
+                <div>
+
+                    <strong>
+                        CPU Usage
+                    </strong>
+
+                    <p>
+                        Detects CPU saturation and abnormal
+                        resource consumption.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-item">
+
+                <span class="feature-number">
+                    02
+                </span>
+
+                <div>
+
+                    <strong>
+                        Memory Usage
+                    </strong>
+
+                    <p>
+                        Identifies unusual memory consumption
+                        and potential memory leaks.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-item">
+
+                <span class="feature-number">
+                    03
+                </span>
+
+                <div>
+
+                    <strong>
+                        Network Latency
+                    </strong>
+
+                    <p>
+                        Detects abnormal network latency
+                        and connectivity problems.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-item">
+
+                <span class="feature-number">
+                    04
+                </span>
+
+                <div>
+
+                    <strong>
+                        Pod Restarts
+                    </strong>
+
+                    <p>
+                        Helps identify Kubernetes pod crashes
+                        and instability.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-item">
+
+                <span class="feature-number">
+                    05
+                </span>
+
+                <div>
+
+                    <strong>
+                        Error Rate
+                    </strong>
+
+                    <p>
+                        Detects error storms and abnormal
+                        application behaviour.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-item">
+
+                <span class="feature-number">
+                    06
+                </span>
+
+                <div>
+
+                    <strong>
+                        Response Time
+                    </strong>
+
+                    <p>
+                        Monitors application performance
+                        and service degradation.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ARCHITECTURE -->
+
+    <div class="architecture-card">
+
+        <span class="small-label">
+            ML PIPELINE
+        </span>
+
+        <h2>
+            Anomaly Detection Flow
+        </h2>
+
+
+        <div class="pipeline">
+
+            <div class="pipeline-step">
+                <span>01</span>
+                Metrics
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="pipeline-step">
+                <span>02</span>
+                Scaling
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="pipeline-step">
+                <span>03</span>
+                LSTM
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="pipeline-step">
+                <span>04</span>
+                Reconstruction
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="pipeline-step">
+                <span>05</span>
+                Anomaly
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+```

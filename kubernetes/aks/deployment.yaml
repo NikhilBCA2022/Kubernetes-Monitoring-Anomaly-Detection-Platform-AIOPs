@@ -25,7 +25,7 @@ spec:
 
       - name: aiops-api
 
-        image: nikhilaiopsacr2026.azurecr.io/aiops-platform-api:v1
+        image:  nikhilaiopsacr2026.azurecr.io/aiops-api:v4
 
         imagePullPolicy: Always
 
